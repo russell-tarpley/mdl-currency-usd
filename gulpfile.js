@@ -23,7 +23,7 @@
       }).on('error', sass.logError))
       .pipe(rename(function(path) {
         path.dirname = '';
-        path.basename = 'mdl-selectfield';
+        path.basename = 'mdl-currency-usd';
         path.extname = '.min.css';
       }))
       .pipe(sourcemaps.write('./'))
@@ -33,7 +33,7 @@
   gulp.task('sass', function () {
     gulp
       .src(sassFiles)
-      .pipe(concat('mdl-selectfield.scss'))
+      .pipe(concat('mdl-currency-usd.scss'))
       .pipe(sass({
         sourceComments: false
       }).on('error', sass.logError))
@@ -43,7 +43,7 @@
   gulp.task('js-compress', function() {
     gulp
       .src(jsFiles)
-      .pipe(uglify('mdl-selectfield.min.js', {
+      .pipe(uglify('mdl-currency-usd.min.js', {
         outSourceMap: true
       }))
       .pipe(gulp.dest('./dist'));
@@ -54,7 +54,7 @@
       .src(jsFiles)
       .pipe(rename(function(path) {
         path.dirname = '';
-        path.basename = 'mdl-selectfield';
+        path.basename = 'mdl-currency-usd';
         path.extname = '.js';
       }))
       .pipe(gulp.dest('./dist'));

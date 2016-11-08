@@ -1,10 +1,10 @@
 {
-  "name": "mdl-selectfield",
-  "version": "1.0.4",
-  "description": "mdl-selectfield for material-design-lite",
+  "name": "mdl-currency-usd",
+  "version": "0.0.1",
+  "description": "mdl-currency-usd for material-design-lite",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mebibou/mdl-selectfield.git"
+    "url": "https://github.com/rathxxx/mdl-currency-usd.git"
   },
   "keywords": [
     "material",
@@ -15,12 +15,12 @@
     "mdl",
     "select"
   ],
-  "author": "Guillaume Royer <guillaumeroyer.mail@gmail.com>",
+  "author": "Russell Tarpley <russell.tarpley@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mebibou/mdl-selectfield/issues"
+    "url": "https://github.com/rathxxx/mdl-currnecy-usd/issues"
   },
-  "homepage": "https://github.com/mebibou/mdl-selectfield",
+  "homepage": "https://github.com/rathxxx/mdl-currency-usd",
   "devDependencies": {
     "bower": "^1.5.2",
     "gulp": "^3.9.0",
