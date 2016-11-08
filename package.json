@@ -23,12 +23,12 @@
   "homepage": "https://github.com/rathxxx/mdl-currency-usd",
   "devDependencies": {
     "bower": "^1.5.2",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.5.2",
-    "gulp-uglifyjs": "^0.6.2"
+    "gulp-uglify": "^2.0.0"
   },
   "dependencies": {
     "material-design-lite": "^1.1.3"
