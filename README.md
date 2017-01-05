@@ -1,5 +1,5 @@
 # mdl-currency-usd
-An Material Design Lite phone textfield implementation for capturing user entered US currency values (https://github.com/google/material-design-lite)
+An Material Design Lite currency textfield implementation for capturing user entered US currency values (https://github.com/google/material-design-lite)
 
 [![Bower Version](https://img.shields.io/bower/v/mdl-currency-usd.svg)](https://github.com/rathxxx/mdl-currency-usd)
 [![NPM Version](https://img.shields.io/npm/v/mdl-currency-usd.svg)](https://www.npmjs.com/package/mdl-currency-usd)
@@ -33,7 +33,7 @@ To use any MDL component, you must include the minified CSS and JavaScript files
 
 ### To include a MDL **currency-usd textfield** component:
 
-&nbsp;1. Code a `<div>` element to hold the phone text field.
+&nbsp;1. Code a `<div>` element to hold the currency text field.
 ```html
 <div>
 ...
@@ -59,11 +59,11 @@ To use any MDL component, you must include the minified CSS and JavaScript files
         <label class="mdl-currency-usd__label" for="sample3">currency Example...</label>
 </div>
 ```
-The phone textfield component is ready for use.
+The currency textfield component is ready for use.
 
 #### Examples
 
-phone field with a standard label.
+currency field with a standard label.
 ```html
 <div class="mdl-currency-usd mdl-js-currency-usd">
         <input class="mdl-currency-usd__input" type="text" id="sample1">
@@ -71,7 +71,7 @@ phone field with a standard label.
 </div>
 ```
 
-phone field with a floating label.
+currency field with a floating label.
 ```html
 <div class="mdl-currency-usd mdl-js-currency-usd mdl-currency-usd--floating-label">
         <input class="mdl-currency-usd__input" type="text" id="sample4">
@@ -79,7 +79,7 @@ phone field with a floating label.
 </div>
 ```
 
-phone field with a standard label, and error message.
+currency field with a standard label, and error message.
 ```html
 <div class="mdl-currency-usd mdl-js-currency-usd">
         <input class="mdl-currency-usd__input" type="text" id="sample4">
