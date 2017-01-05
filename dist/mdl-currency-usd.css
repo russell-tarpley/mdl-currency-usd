@@ -40,6 +40,8 @@
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -148,6 +150,7 @@
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
+/* CHIP */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -167,3 +170,151 @@
 /* Shadows */
 /* Animations */
 /* Dialog */
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.mdl-currency-usd {
+  position: relative;
+  font-size: 16px;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 300px;
+  max-width: 100%;
+  margin: 0;
+  padding: 20px 0; }
+
+.mdl-currency-usd--align-right {
+  text-align: right; }
+
+.mdl-currency-usd--full-width {
+  width: 100%; }
+
+.mdl-currency-usd--expandable {
+  min-width: 32px;
+  width: auto;
+  min-height: 32px; }
+  .mdl-currency-usd--expandable .mdl-button--icon {
+    top: 16px; }
+
+.mdl-currency-usd__input {
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0, 0.12);
+  display: block;
+  font-size: 16px;
+  font-family: "Helvetica", "Arial", sans-serif;
+  margin: 0;
+  padding: 4px 0;
+  width: 100%;
+  background: none;
+  text-align: left;
+  color: inherit; }
+  .mdl-currency-usd__input[type="number"] {
+    -moz-appearance: textfield; }
+  .mdl-currency-usd__input[type="number"]::-webkit-inner-spin-button, .mdl-currency-usd__input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  .mdl-currency-usd.is-focused .mdl-currency-usd__input {
+    outline: none; }
+  .mdl-currency-usd.is-invalid .mdl-currency-usd__input {
+    border-color: rgb(213,0,0);
+    box-shadow: none; }
+  fieldset[disabled] .mdl-currency-usd .mdl-currency-usd__input,
+  .mdl-currency-usd.is-disabled .mdl-currency-usd__input {
+    background-color: transparent;
+    border-bottom: 1px dotted rgba(0,0,0, 0.12);
+    color: rgba(0,0,0, 0.26); }
+
+.mdl-currency-usd textarea.mdl-currency-usd__input {
+  display: block; }
+
+.mdl-currency-usd__label {
+  bottom: 0;
+  color: rgba(0,0,0, 0.26);
+  font-size: 16px;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  top: 24px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left; }
+  .mdl-currency-usd.is-dirty .mdl-currency-usd__label,
+  .mdl-currency-usd.has-placeholder .mdl-currency-usd__label {
+    visibility: hidden; }
+  .mdl-currency-usd--floating-label .mdl-currency-usd__label {
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  .mdl-currency-usd--floating-label.has-placeholder .mdl-currency-usd__label {
+    transition: none; }
+  fieldset[disabled] .mdl-currency-usd .mdl-currency-usd__label,
+  .mdl-currency-usd.is-disabled.is-disabled .mdl-currency-usd__label {
+    color: rgba(0,0,0, 0.26); }
+  .mdl-currency-usd--floating-label.is-focused .mdl-currency-usd__label,
+  .mdl-currency-usd--floating-label.is-dirty .mdl-currency-usd__label,
+  .mdl-currency-usd--floating-label.has-placeholder .mdl-currency-usd__label {
+    color: rgb(63,81,181);
+    font-size: 12px;
+    top: 4px;
+    visibility: visible; }
+  .mdl-currency-usd--floating-label.is-focused .mdl-currency-usd__expandable-holder .mdl-currency-usd__label,
+  .mdl-currency-usd--floating-label.is-dirty .mdl-currency-usd__expandable-holder .mdl-currency-usd__label,
+  .mdl-currency-usd--floating-label.has-placeholder .mdl-currency-usd__expandable-holder .mdl-currency-usd__label {
+    top: -16px; }
+  .mdl-currency-usd--floating-label.is-invalid .mdl-currency-usd__label {
+    color: rgb(213,0,0);
+    font-size: 12px; }
+  .mdl-currency-usd__label:after {
+    background-color: rgb(63,81,181);
+    bottom: 20px;
+    content: '';
+    height: 2px;
+    left: 45%;
+    position: absolute;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    width: 10px; }
+  .mdl-currency-usd.is-focused .mdl-currency-usd__label:after {
+    left: 0;
+    visibility: visible;
+    width: 100%; }
+  .mdl-currency-usd.is-invalid .mdl-currency-usd__label:after {
+    background-color: rgb(213,0,0); }
+
+.mdl-currency-usd__error {
+  color: rgb(213,0,0);
+  position: absolute;
+  font-size: 12px;
+  margin-top: 3px;
+  visibility: hidden;
+  display: block; }
+  .mdl-currency-usd.is-invalid .mdl-currency-usd__error {
+    visibility: visible; }
+
+.mdl-currency-usd__expandable-holder {
+  display: inline-block;
+  position: relative;
+  margin-left: 32px;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+  max-width: 0.1px; }
+  .mdl-currency-usd.is-focused .mdl-currency-usd__expandable-holder, .mdl-currency-usd.is-dirty .mdl-currency-usd__expandable-holder {
+    max-width: 600px; }
+  .mdl-currency-usd__expandable-holder .mdl-currency-usd__label:after {
+    bottom: 0; }
