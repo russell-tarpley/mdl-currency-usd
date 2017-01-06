@@ -11,7 +11,6 @@
      */
     var MaterialCurrencyTextfield = function MaterialCurrencyTextfield(element) {
         this.element_ = element;
-        this.rawValue = "";
         // Initialize instance.
         this.init();
     };
@@ -23,7 +22,9 @@
      * @enum {string | number}
      * @private
      */
-    MaterialCurrencyTextfield.prototype.Constant_ = {};
+    MaterialCurrencyTextfield.prototype.Constant_ = {
+        Pattern: /^\$?((\d*)(\.\d{2})?)?$/
+    };
 
     /**
      * Store strings for class names defined by this component that are used in
@@ -61,19 +62,30 @@
      */
     MaterialCurrencyTextfield.prototype.onBlur_ = function (event) {
         this.element_.classList.remove(this.CssClasses_.IS_FOCUSED);
+        //Class Updates
+        this.updateClasses_();
+        //Handle Formatting when valid and value exists
+        if (!this.element_.classList.contains(this.CssClasses_.IS_INVALID) && this.element_.classList.contains(this.CssClasses_.IS_DIRTY)) {
+            var matches = this.Constant_.Pattern.exec(this.input_.value);
+            if (typeof matches[3] === "undefined" || matches[3].length === 0) {
+                //decimal wasn't entered
+                matches[3] = ".00";
+            }
+            this.input_.value = matches[2] + matches[3];
+        }
     };
 
-    MaterialCurrencyTextfield.prototype.onChange_ = function (event) {
-        var pattern = /^\(?(\d{3})\)?\u0020?\.?-?(\d{3})\u0020?\.?-?\u0020?(\d{4})$/;
-        //Test the input string for basic format (optional '-')
-        if (!pattern.test(this.input_.value)) {
-            this.element_.classList.add(this.CssClasses_.IS_INVALID);
-            return false;
-        } else {
-            var matches = pattern.exec(this.input_.value);
-            this.rawValue = matches[1] + matches[2] + matches[3];
-            this.input_.value = "(" + matches[1] + ") " + matches[2] + " - " + matches[3];
-        }
+    /**
+     * Handle Input values
+     * 
+     * @param {type} event The event that fired.
+     * @private
+     */
+    MaterialCurrencyTextfield.prototype.onInput_ = function (event) {
+        //Class Updates
+        this.updateClasses_();
+
+        
     };
 
     /**
@@ -147,7 +159,7 @@
      */
     MaterialCurrencyTextfield.prototype.checkValidity = function () {
         if (this.input_.validity) {
-            if (this.input_.validity.valid) {
+            if (this.input_.validity.valid && this.Constant_.Pattern.test(this.input_.value)) {
                 this.element_.classList.remove(this.CssClasses_.IS_INVALID);
             } else {
                 this.element_.classList.add(this.CssClasses_.IS_INVALID);
@@ -217,29 +229,20 @@
             this.input_ = this.element_.querySelector('.' + this.CssClasses_.INPUT);
 
             if (this.input_) {
-                this.boundUpdateClassesHandler = this.updateClasses_.bind(this);
+                this.boundInputHandler = this.onInput_.bind(this);
                 this.boundFocusHandler = this.onFocus_.bind(this);
                 this.boundBlurHandler = this.onBlur_.bind(this);
                 this.boundResetHandler = this.onReset_.bind(this);
-                this.boundChangeHandler = this.onChange_.bind(this);
-                this.input_.addEventListener('input', this.boundUpdateClassesHandler);
+                this.input_.addEventListener('input', this.boundInputHandler);
                 this.input_.addEventListener('focus', this.boundFocusHandler);
                 this.input_.addEventListener('blur', this.boundBlurHandler);
                 this.input_.addEventListener('reset', this.boundResetHandler);
-                this.input_.addEventListener('change', this.boundChangeHandler);
 
-                var invalid = this.element_.classList.contains(this.CssClasses_.IS_INVALID);
-                this.updateClasses_();
+                this.onInput_();
                 this.element_.classList.add(this.CssClasses_.IS_UPGRADED);
-                if (invalid) {
-                    this.element_.classList.add(this.CssClasses_.IS_INVALID);
-                }
                 if (this.input_.hasAttribute('autofocus')) {
                     this.element_.focus();
                     this.checkFocus();
-                }
-                if (this.input_.value.length > 0) {
-                    this.onChange_();
                 }
             }
         }
