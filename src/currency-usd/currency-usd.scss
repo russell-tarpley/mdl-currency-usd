@@ -94,6 +94,24 @@
   display: block;
 }
 
+.mdl-currency-usd .mdl-currency-usd__symbol {
+    display: none;
+    font-size: 16px;
+    width: 12px;
+    position: absolute;
+    top: 23px;
+}
+
+.mdl-currency-usd.is-focused .mdl-currency-usd__dollarSign, .mdl-currency-usd.is-dirty .mdl-currency-usd__symbol {
+    display: inline-block;
+}
+
+fieldset[disabled] .mdl-currency-usd .mdl-currency-usd__input.is-disabled mdl-currency-usd__symbol,
+.mdl-currency-usd.is-disabled .mdl-currency-usd__symbol {
+    color: $input-text-disabled-text-color;
+}
+
+
 // Styling for the label / floating label.
 .mdl-currency-usd__label {
   bottom: 0;

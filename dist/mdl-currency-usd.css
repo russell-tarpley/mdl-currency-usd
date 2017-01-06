@@ -40,8 +40,6 @@
  * -----Data table
  * -----Dialog
  * -----Snackbar
- * -----Tooltip
- * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -150,7 +148,6 @@
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
-/* CHIP */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -239,6 +236,20 @@
 .mdl-currency-usd textarea.mdl-currency-usd__input {
   display: block; }
 
+.mdl-currency-usd .mdl-currency-usd__symbol {
+  display: none;
+  font-size: 16px;
+  width: 12px;
+  position: absolute;
+  top: 23px; }
+
+.mdl-currency-usd.is-focused .mdl-currency-usd__dollarSign, .mdl-currency-usd.is-dirty .mdl-currency-usd__symbol {
+  display: inline-block; }
+
+fieldset[disabled] .mdl-currency-usd .mdl-currency-usd__input.is-disabled mdl-currency-usd__symbol,
+.mdl-currency-usd.is-disabled .mdl-currency-usd__symbol {
+  color: rgba(0,0,0, 0.26); }
+
 .mdl-currency-usd__label {
   bottom: 0;
   color: rgba(0,0,0, 0.26);
@@ -267,7 +278,7 @@
   .mdl-currency-usd--floating-label.is-focused .mdl-currency-usd__label,
   .mdl-currency-usd--floating-label.is-dirty .mdl-currency-usd__label,
   .mdl-currency-usd--floating-label.has-placeholder .mdl-currency-usd__label {
-    color: rgb(63,81,181);
+    color: rgb(33,150,243);
     font-size: 12px;
     top: 4px;
     visibility: visible; }
@@ -279,7 +290,7 @@
     color: rgb(213,0,0);
     font-size: 12px; }
   .mdl-currency-usd__label:after {
-    background-color: rgb(63,81,181);
+    background-color: rgb(33,150,243);
     bottom: 20px;
     content: '';
     height: 2px;

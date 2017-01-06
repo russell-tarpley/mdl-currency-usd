@@ -84,6 +84,6 @@ currency field with a standard label, and error message.
 <div class="mdl-currency-usd mdl-js-currency-usd">
         <input class="mdl-currency-usd__input" type="text" id="sample4">
         <label class="mdl-currency-usd__label" for="sample4">currency Example...</label>
-		<span class="mdl-currency-usd__error">$9.99</span>
+		<span class="mdl-currency-usd__error">#.##</span>
 </div>
 ```
