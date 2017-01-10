@@ -11,6 +11,7 @@
      */
     var MaterialCurrencyTextfield = function MaterialCurrencyTextfield(element) {
         this.element_ = element;
+        this.rawValue = "";
         // Initialize instance.
         this.init();
     };
@@ -23,7 +24,9 @@
      * @private
      */
     MaterialCurrencyTextfield.prototype.Constant_ = {
-        Pattern: /^\$?((\d*)(\.\d{2})?)?$/
+        Pattern: /^\$?((\d*)(\.\d{2})?)?$/,
+        CommaPattern: /\B(?=(\d{3})+(?!\d))/g,
+        FormattedPattern: /^(\$)?(\d{1,3})?(((\,\d{3})+)|(\d*))?(\.{0,1}\d{2})?$/
     };
 
     /**
@@ -66,12 +69,21 @@
         this.updateClasses_();
         //Handle Formatting when valid and value exists
         if (!this.element_.classList.contains(this.CssClasses_.IS_INVALID) && this.element_.classList.contains(this.CssClasses_.IS_DIRTY)) {
+            //Stip any commas prior to matching
+            while (this.input_.value.indexOf(",") !== -1) {
+                this.input_.value = this.input_.value.replace(",", "");
+            }
+            //match on main expression
             var matches = this.Constant_.Pattern.exec(this.input_.value);
             if (typeof matches[3] === "undefined" || matches[3].length === 0) {
                 //decimal wasn't entered
                 matches[3] = ".00";
             }
             this.input_.value = matches[2] + matches[3];
+            //Store Numeric representation
+            this.rawValue = this.input_.value;
+            //Insert commas
+            this.input_.value = this.input_.value.toString().replace(this.Constant_.CommaPattern, ",");
         }
     };
 
@@ -84,7 +96,6 @@
     MaterialCurrencyTextfield.prototype.onInput_ = function (event) {
         //Class Updates
         this.updateClasses_();
-
         
     };
 
@@ -159,7 +170,7 @@
      */
     MaterialCurrencyTextfield.prototype.checkValidity = function () {
         if (this.input_.validity) {
-            if (this.input_.validity.valid && this.Constant_.Pattern.test(this.input_.value)) {
+            if (this.input_.validity.valid && (this.Constant_.Pattern.test(this.input_.value) || this.Constant_.FormattedPattern.test(this.input_.value))) {
                 this.element_.classList.remove(this.CssClasses_.IS_INVALID);
             } else {
                 this.element_.classList.add(this.CssClasses_.IS_INVALID);
@@ -220,6 +231,16 @@
     MaterialCurrencyTextfield.prototype['change'] = MaterialCurrencyTextfield.prototype.change;
 
     /**
+     * Retrieve the raw value of the field
+     * @returns {string} unmasked value
+     */
+    MaterialCurrencyTextfield.prototype.getValue = function () {
+        return this.rawValue;
+    };
+    MaterialCurrencyTextfield.prototype['getValue'] =
+        MaterialCurrencyTextfield.prototype.getValue;
+
+    /**
    * Initialize element.
    */
     MaterialCurrencyTextfield.prototype.init = function () {
@@ -243,6 +264,9 @@
                 if (this.input_.hasAttribute('autofocus')) {
                     this.element_.focus();
                     this.checkFocus();
+                }
+                if (this.element_.classList.contains(this.CssClasses_.IS_DIRTY)) {
+                    this.onBlur_();
                 }
             }
         }
