@@ -24,7 +24,7 @@
      * @private
      */
     MaterialCurrencyTextfield.prototype.Constant_ = {
-        Pattern: /^\$?((\d*)(\.\d{2})?)?$/,
+        Pattern: /^\$?((\d*)(\.?\d{0,2})?)?$/,
         CommaPattern: /\B(?=(\d{3})+(?!\d))/g,
         FormattedPattern: /^(\$)?(\d{1,3})?(((\,\d{3})+)|(\d*))?(\.{0,1}\d{2})?$/
     };
@@ -69,7 +69,7 @@
         this.updateClasses_();
         //Handle Formatting when valid and value exists
         if (!this.element_.classList.contains(this.CssClasses_.IS_INVALID) && this.element_.classList.contains(this.CssClasses_.IS_DIRTY)) {
-            //Stip any commas prior to matching
+            //Strip any commas prior to matching
             while (this.input_.value.indexOf(",") !== -1) {
                 this.input_.value = this.input_.value.replace(",", "");
             }
@@ -78,6 +78,19 @@
             if (typeof matches[3] === "undefined" || matches[3].length === 0) {
                 //decimal wasn't entered
                 matches[3] = ".00";
+            } else {
+                matches[3] = matches[3].replace(".", "");
+                switch (matches[3].length) {
+                    case 0:
+                        matches[3] = ".00";
+                        break;
+                    case 1:
+                        matches[3] = "." + matches[3] + "0";
+                        break;
+                    case 2:
+                        matches[3] = "." + matches[3];
+                        break;
+                }
             }
             this.input_.value = matches[2] + matches[3];
             //Store Numeric representation
