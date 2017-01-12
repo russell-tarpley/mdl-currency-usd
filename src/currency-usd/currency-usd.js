@@ -96,6 +96,9 @@
                         break;
                 }
             }
+            if (typeof matches[2] === "undefined") {
+                matches[2] = "0";
+            }
             this.input_.value = matches[2] + matches[3];
             //Store Numeric representation
             this.rawValue = this.input_.value;
