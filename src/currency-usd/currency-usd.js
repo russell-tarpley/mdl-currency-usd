@@ -55,6 +55,10 @@
      */
     MaterialCurrencyTextfield.prototype.onFocus_ = function (event) {
         this.element_.classList.add(this.CssClasses_.IS_FOCUSED);
+        //Strip any commas prior to matching
+        while (this.input_.value.indexOf(",") !== -1) {
+            this.input_.value = this.input_.value.replace(",", "");
+        }
     };
 
     /**
