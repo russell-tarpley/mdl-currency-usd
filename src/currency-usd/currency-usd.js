@@ -208,7 +208,7 @@
             }
             //match on main expression
             var matches = this.Constant_.Pattern.exec(this.input_.value);
-            if (typeof matches[2] !== "undefined" && matches[2].length > this.maxIntegers) {
+            if (typeof matches !== "undefined" && typeof matches[2] !== "undefined" && matches[2].length > this.maxIntegers) {
                 return false;
             }
         }

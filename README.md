@@ -96,3 +96,13 @@ currency field with a standard label, symbol, and error message.
 		<span class="mdl-currency-usd__error">#.##</span>
 </div>
 ```html
+
+currency field with floating label, symbol, error message, and 12 integer 2 decimal constraint
+```html
+<div class="mdl-currency-usd mdl-js-currency-usd mdl-currency-usd--floating-label">
+        <input class="mdl-currency-usd__input" type="text" id="sample1" maxIntegers="12" maxDecimals="2">
+        <label class="mdl-currency-usd__label" for="sample1">currency 12.2 Example...</label>
+        <div class="mdl-currency-usd__symbol">$</div>
+        <span class="mdl-currency-usd__error">#.##</span>
+    </div>
+```
