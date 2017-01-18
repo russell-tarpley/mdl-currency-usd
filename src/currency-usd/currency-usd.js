@@ -11,6 +11,8 @@
      */
     var MaterialCurrencyTextfield = function MaterialCurrencyTextfield(element) {
         this.element_ = element;
+        this.maxIntegers = 14;
+        this.maxDecimals = 2;
         this.rawValue = "";
         // Initialize instance.
         this.init();
@@ -79,24 +81,15 @@
             }
             //match on main expression
             var matches = this.Constant_.Pattern.exec(this.input_.value);
-            if (typeof matches[3] === "undefined" || matches[3].length === 0) {
-                //decimal wasn't entered
-                matches[3] = ".00";
-            } else {
-                matches[3] = matches[3].replace(".", "");
-                switch (matches[3].length) {
-                    case 0:
-                        matches[3] = ".00";
-                        break;
-                    case 1:
-                        matches[3] = "." + matches[3] + "0";
-                        break;
-                    case 2:
-                        matches[3] = "." + matches[3];
-                        break;
-                }
+            if ((typeof matches[3] === "undefined" || matches[3].length === 0) && (this.maxDecimals > 0)) {
+                matches[3] = ".";
             }
-            if (typeof matches[2] === "undefined") {
+            //add decimal buffer based on defined maxDecimals
+            while (matches[3].length <= this.maxDecimals) {
+                matches[3] += "0";
+            }
+            //add 0 integer if none are specified
+            if (typeof matches[2] === "undefined" || matches[2] === "." || matches[2] === "") {
                 matches[2] = "0";
             }
             this.input_.value = matches[2] + matches[3];
@@ -189,8 +182,10 @@
      * @public
      */
     MaterialCurrencyTextfield.prototype.checkValidity = function () {
+        
         if (this.input_.validity) {
-            if (this.input_.validity.valid && (this.Constant_.Pattern.test(this.input_.value) || this.Constant_.FormattedPattern.test(this.input_.value))) {
+            if (this.input_.validity.valid && this.isValidLength() && (this.Constant_.Pattern.test(this.input_.value) ||
+                this.Constant_.FormattedPattern.test(this.input_.value))) {
                 this.element_.classList.remove(this.CssClasses_.IS_INVALID);
             } else {
                 this.element_.classList.add(this.CssClasses_.IS_INVALID);
@@ -199,6 +194,26 @@
     };
     MaterialCurrencyTextfield.prototype['checkValidity'] =
         MaterialCurrencyTextfield.prototype.checkValidity;
+
+    /**
+     * Handle class updates.
+     *
+     * @private
+     */
+    MaterialCurrencyTextfield.prototype.isValidLength = function () {
+        if (this.maxIntegers > 0) {
+            //Strip any commas prior to matching
+            while (this.input_.value.indexOf(",") !== -1) {
+                this.input_.value = this.input_.value.replace(",", "");
+            }
+            //match on main expression
+            var matches = this.Constant_.Pattern.exec(this.input_.value);
+            if (typeof matches[2] !== "undefined" && matches[2].length > this.maxIntegers) {
+                return false;
+            }
+        }
+        return true;
+    };
 
     /**
      * Check the dirty state and update field accordingly.
@@ -284,6 +299,12 @@
                 if (this.input_.hasAttribute('autofocus')) {
                     this.element_.focus();
                     this.checkFocus();
+                }
+                if (this.input_.hasAttribute('maxintegers')) {
+                    this.maxIntegers = parseInt(this.input_.attributes["maxintegers"].value,10);
+                }
+                if (this.input_.hasAttribute('maxdecimals')) {
+                    this.maxDecimals = parseInt(this.input_.attributes["maxdecimals"].value,10);
                 }
                 if (this.element_.classList.contains(this.CssClasses_.IS_DIRTY)) {
                     this.onBlur_();
