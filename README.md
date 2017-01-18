@@ -105,4 +105,4 @@ currency field with floating label, symbol, error message, and 12 integer 2 deci
         <div class="mdl-currency-usd__symbol">$</div>
         <span class="mdl-currency-usd__error">#.##</span>
     </div>
-```
+```html
