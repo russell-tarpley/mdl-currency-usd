@@ -61,7 +61,7 @@
   width: $input-text-width;
   background: none;
   text-align: right;
-  color: inherit;
+  color: $input-active-text-color;
 
   &[type="number"] {
     -moz-appearance: textfield;
@@ -150,7 +150,6 @@ fieldset[disabled] .mdl-currency-usd .mdl-currency-usd__input.is-disabled mdl-cu
   .mdl-currency-usd--floating-label.is-focused &,
   .mdl-currency-usd--floating-label.is-dirty &,
   .mdl-currency-usd--floating-label.has-placeholder & {
-    color: $input-text-highlight-color;
     font-size : $input-text-floating-label-fontsize;
     top: $input-text-vertical-spacing - ($input-text-floating-label-fontsize + $input-text-padding);
     visibility: visible;
@@ -160,6 +159,11 @@ fieldset[disabled] .mdl-currency-usd .mdl-currency-usd__input.is-disabled mdl-cu
   .mdl-currency-usd--floating-label.is-dirty .mdl-currency-usd__expandable-holder &,
   .mdl-currency-usd--floating-label.has-placeholder .mdl-currency-usd__expandable-holder & {
     top: -($input-text-floating-label-fontsize + $input-text-padding);
+  }
+
+  // Fix for field labels retaining their color after losing focus
+  :not(.is-invalid).mdl-currency-usd--floating-label.is-focused > .mdl-currency-usd__input:focus + & {
+    color: $input-text-highlight-color;    
   }
 
   .mdl-currency-usd--floating-label.is-invalid & {
